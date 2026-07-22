@@ -1,6 +1,7 @@
 import express from 'express';
 import helloRoutes from './routes/helloRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 
 const app = express();
@@ -9,6 +10,7 @@ const port = 3000;
 app.use(express.json());
 app.use('/', helloRoutes);
 app.use('/api/auth', authRoutes);
+app.use(categoryRoutes);
 
 
 app.use((err, req, res, next) => {

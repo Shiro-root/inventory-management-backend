@@ -31,7 +31,7 @@ export const register = async (req, res, next) => {
     });
 
     return res.status(201).json({
-      message: 'Registrasi berhasil!', 
+      message: 'Registrasi berhasil!',
       data: newUser,
     });
   } catch (error) {
@@ -39,22 +39,22 @@ export const register = async (req, res, next) => {
   }
 };
 
-export const login  = async (req, res, next) =>{
-  try{
-   
-    const {username, password} = req.body;
+export const login = async (req, res, next) => {
+  try {
 
-    if (!username || !password){
+    const { username, password } = req.body;
+
+    if (!username || !password) {
       return res.status(400).json({
-        message:  'Username dan Password Wajib di isi !',
+        message: 'Username dan Password Wajib di isi !',
       });
     }
 
     const user = await prisma.user.findUnique({
-      where: {username},
+      where: { username },
     });
 
-    if (!user){
+    if (!user) {
       return res.status(401).json({
         message: 'Username tidak ditemukan',
       })
@@ -62,21 +62,23 @@ export const login  = async (req, res, next) =>{
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if (!isPasswordValid){
+    if (!isPasswordValid) {
       return res.status(401).json({
         message: 'Username atau Password salah!',
       })
     }
 
-     const token =   jwt.sign
-    ({id: user.id,
-      username: user.username,
-      role: user.role}, 
-      process.env.JWT_SECRET, 
-      {expiresIn: '1d'});
+    const token = jwt.sign
+      ({
+        id: user.id,
+        username: user.username,
+        role: user.role
+      },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' });
 
-    return res.status(200).json ({
-      message : 'Login Berhasil !',
+    return res.status(200).json({
+      message: 'Login Berhasil !',
       token,
       data: {
         id: user.id,
@@ -85,7 +87,7 @@ export const login  = async (req, res, next) =>{
 
       },
     });
-  }catch (error){
+  } catch (error) {
     return next(error);
   }
 };
