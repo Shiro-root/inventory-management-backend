@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 app.use('/', helloRoutes);
 app.use('/api/auth', authRoutes);
 

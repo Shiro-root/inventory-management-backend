@@ -1,4 +1,4 @@
-import { register } from "../controllers/authController";
+import { register } from "../controllers/authController.js";
 import {Router} from 'express';
 
 const router = Router();
