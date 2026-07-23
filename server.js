@@ -10,7 +10,7 @@ const port = 3000;
 app.use(express.json());
 app.use('/', helloRoutes);
 app.use('/api/auth', authRoutes);
-app.use(categoryRoutes);
+app.use('/api/categories',categoryRoutes);
 
 
 app.use((err, req, res, next) => {
